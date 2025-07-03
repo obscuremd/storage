@@ -96,10 +96,10 @@ export function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="/main/home">
+                    <Link href="/main/home">
                       <Home className="w-4 h-4" />
                       <span>Home</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
@@ -109,7 +109,7 @@ export function AppSidebar() {
                     onClick={() => setMyFilesOpen(!myFilesOpen)}
                   >
                     <Folder className="w-4 h-4" />
-                    <a href="/main/my_files">My Files</a>
+                    <Link href="/main/my_files">My Files</Link>
                     {myFilesOpen ? (
                       <ChevronDown className="ml-auto h-4 w-4" />
                     ) : (
@@ -128,14 +128,14 @@ export function AppSidebar() {
                       </>
                     ) : (
                       folders.map((item) => (
-                        <a
+                        <Link
                           href={`/main/my_files/${item.title}`}
                           key={item._id}
                           className="flex items-center gap-2 px-2 py-1 hover:bg-muted rounded-md"
                         >
                           <Folder className="w-3.5 h-3.5" />
                           {item.title}
-                        </a>
+                        </Link>
                       ))
                     )}
                   </div>
@@ -144,29 +144,29 @@ export function AppSidebar() {
                 {/* Recents */}
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="/main/recents">
+                    <Link href="/main/recents">
                       <Clock className="w-4 h-4" />
                       <span>Recents</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 {/* Trash */}
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="/main/recycle_bin">
+                    <Link href="/main/recycle_bin">
                       <Trash2 className="w-4 h-4" />
                       <span>Recycle Bin</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 {/* quick Access */}
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <a href="/main/quick_access">
+                    <Link href="/main/quick_access">
                       <Star className="w-4 h-4" />
                       <span>Quick Access</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
