@@ -21,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push("/dashboard");
+      router.push("/main/home");
     }
   }, [isSignedIn, router]);
 

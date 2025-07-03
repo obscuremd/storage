@@ -7,6 +7,7 @@ interface DBFile {
   size: number;
   description?: string;
   status?: string; // default is "active"
+  folder?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

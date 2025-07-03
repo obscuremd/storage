@@ -6,16 +6,29 @@ import mongoose from "mongoose";
 export const POST = async (req: NextRequest) => {
   try {
     await connectMongoDb();
-    const { title, email, url, type, size, description } = await req.json();
+    const { title, email, url, type, size, description, folder } =
+      await req.json();
 
-    if (!title || !email || !url || !type || !size) {
+    const missingFields = [];
+    if (!title) missingFields.push("title");
+    if (!email) missingFields.push("email");
+    if (!url) missingFields.push("url");
+    if (!type) missingFields.push("type");
+    if (!size) missingFields.push("size");
+
+    if (missingFields.length > 0) {
       return NextResponse.json(
-        { message: "Missing required fields" },
+        {
+          message: `Missing required field${
+            missingFields.length > 1 ? "s" : ""
+          }: ${missingFields.join(", ")}`,
+        },
         { status: 400 }
       );
     }
 
-    await File.create({ title, email, url, type, size, description });
+    await File.create({ title, email, url, type, size, description, folder });
+
     return NextResponse.json(
       { message: "File uploaded successfully" },
       { status: 201 }
@@ -38,6 +51,7 @@ export const GET = async (req: NextRequest) => {
     const email = searchParams.get("email");
     const title = searchParams.get("title");
     const type = searchParams.get("type");
+    const folder = searchParams.get("folder");
     const status = searchParams.get("status");
     const pageParam = searchParams.get("page");
     const limitParam = searchParams.get("limit");
@@ -68,11 +82,13 @@ export const GET = async (req: NextRequest) => {
       type?: string;
       status?: string;
       title?: string;
+      folder?: string;
     } = {};
     if (email) filter.email = email;
     if (type) filter.type = type;
     if (status) filter.status = status;
     if (title) filter.title = title;
+    if (folder) filter.folder = folder;
 
     // Pagination logic
     const page = parseInt(pageParam || "1");
@@ -98,19 +114,19 @@ export const GET = async (req: NextRequest) => {
 
 export const PUT = async (req: NextRequest) => {
   try {
-    connectMongoDb();
+    await connectMongoDb();
     const id = req.nextUrl.searchParams.get("id");
     if (!id) {
       return NextResponse.json({ message: "Missing ID" }, { status: 400 });
     }
 
     const data = await req.json(); // Parse body
-    const user = await File.findByIdAndUpdate(id, data, { new: true });
-    if (!user) {
+    const file = await File.findByIdAndUpdate(id, data, { new: true });
+    if (!file) {
       return NextResponse.json({ message: "File not found" }, { status: 404 });
     } else {
       return NextResponse.json(
-        { message: "File updated successfully", user },
+        { message: "File updated successfully", file },
         { status: 200 }
       );
     }

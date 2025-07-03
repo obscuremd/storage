@@ -9,6 +9,7 @@ const FileSchema = new mongoose.Schema(
     size: { type: Number, required: true },
     description: { type: String, required: true },
     status: { type: String, default: "active" },
+    folder: { type: String, default: "" },
   },
   { timestamps: true }
 );
