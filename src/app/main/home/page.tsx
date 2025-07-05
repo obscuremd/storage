@@ -59,12 +59,12 @@ export default function Home() {
       <Collapsible
         open={folderIsOpen}
         onOpenChange={setFolderIsOpen}
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-5 w-full"
       >
         <CollapsibleTrigger>
           <CollapsableButton title="Suggested Folders" />
         </CollapsibleTrigger>
-        <CollapsibleContent className="w-full flex overflow-x-auto whitespace-nowrap gap-3 scroll-smooth overscroll-x-contain">
+        <CollapsibleContent className="flex md:flex-wrap overflow-x-auto whitespace-nowrap gap-3 scroll-smooth overscroll-x-contain px-2">
           {loading ? (
             <>
               <Skeleton className="w-[256px] h-14" />
@@ -86,7 +86,7 @@ export default function Home() {
       </Collapsible>
 
       {/* Files Table */}
-      <FileTable limit={3} title="Suggested Files" />
+      <FileTable limit={5} title="Suggested Files" />
     </main>
   );
 }

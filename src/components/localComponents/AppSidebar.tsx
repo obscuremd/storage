@@ -60,7 +60,10 @@ export function AppSidebar() {
   }, [user?.emailAddresses]);
 
   return (
-    <Sidebar className="w-72 bg-black text-white min-h-screen">
+    <Sidebar
+      collapsible="icon"
+      className="w-72 bg-black text-white min-h-screen"
+    >
       <SidebarContent className="flex flex-col justify-between h-full">
         <div>
           {/* Header */}

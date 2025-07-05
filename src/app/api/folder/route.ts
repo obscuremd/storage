@@ -63,7 +63,7 @@ export const POST = async (req: NextRequest) => {
       { $set: { folder: newlyCreatedFolder._id } }
     );
     return NextResponse.json(
-      { message: "Folder created successfully" },
+      { message: "Folder created successfully", data: newlyCreatedFolder },
       { status: 201 }
     );
   } catch (error) {

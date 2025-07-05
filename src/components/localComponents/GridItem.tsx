@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, BarChart, Clock, Folders, Lock} from "lucide-react";
+import { Activity, BarChart, Clock, Folders, Lock } from "lucide-react";
 import { GlowingEffect } from "./GlowingEffect";
 
 export function GlowingEffectDemo() {
@@ -10,46 +10,44 @@ export function GlowingEffectDemo() {
       <GridItem
         area="xl:col-span-6 xl:row-span-1"
         icon={<Lock className="h-4 w-4 text-black dark:text-neutral-400" />}
-        title="Secure Record Keeping"
-        description="Your data is protected with end-to-end encryption and stored securely—accessible only to you."
+        title="End-to-End Encryption"
+        description="Your files are secured with industry-leading encryption, accessible only by you."
       />
 
       {/* Top Right */}
       <GridItem
         area="xl:col-span-6 xl:row-span-1"
         icon={<BarChart className="h-4 w-4 text-black dark:text-neutral-400" />}
-        title="Descriptive Charts"
-        description="Visual insights to easily analyze your data."
+        title="AI-Powered Insights"
+        description="Gain instant AI-generated summaries and usage analytics of your stored files."
       />
 
       {/* Bottom Left */}
       <GridItem
         area="xl:col-span-4 xl:row-span-1"
         icon={<Activity className="h-4 w-4 text-black dark:text-neutral-400" />}
-        title="Realtime"
-        description="Track asset value over time using live market data."
+        title="Real-Time Backup"
+        description="Automatic backups keep your files safe and synced across all devices in real-time."
       />
 
       {/* Bottom Middle */}
       <GridItem
         area="xl:col-span-4 xl:row-span-1"
         icon={<Clock className="h-4 w-4 text-black dark:text-neutral-400" />}
-        title="Reminders"
-        description="Get smart notifications so you don’t miss another trade."
+        title="File Recovery"
+        description="Recover deleted or lost files instantly with AI-assisted restoration tools."
       />
 
       {/* Bottom Right */}
       <GridItem
         area="xl:col-span-4 xl:row-span-1"
         icon={<Folders className="h-4 w-4 text-black dark:text-neutral-400" />}
-        title="Organization"
-        description="Easy asset categorization by type and class."
+        title="Smart Organization"
+        description="AI auto-organizes your files into folders based on content and usage patterns."
       />
     </ul>
   );
 }
-
-
 
 interface GridItemProps {
   area: string;

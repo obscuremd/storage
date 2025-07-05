@@ -2,9 +2,21 @@
 import { AppSidebar } from "@/components/localComponents/AppSidebar";
 import HomeNav from "@/components/PageComponents/GeneralComponents/HomeNav";
 import Aurora from "@/components/reactBits/Aurora";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push("/");
+    }
+  }, [isSignedIn, router]);
+
   return (
     <SidebarProvider className="relative w-full flex">
       <AppSidebar />
@@ -16,8 +28,9 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           speed={1}
         />
       </div>
-      <main className="px-8 md:px-16 py-8 z-10 gap-6 w-full">
+      <main className="px-4 md:px-16 py-8 z-10 gap-6 w-full">
         <HomeNav />
+        <SidebarTrigger />
         {children}
       </main>
     </SidebarProvider>

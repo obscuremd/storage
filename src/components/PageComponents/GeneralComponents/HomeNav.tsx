@@ -1,7 +1,6 @@
 "use client";
 
 import { AddFiles } from "@/components/localComponents/AddFiles";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,13 +9,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useClerk } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 
 export default function HomeNav() {
-  const { user } = useClerk();
   const pathname = usePathname();
 
   // Get all path segments, ignore empty ones
@@ -38,10 +36,7 @@ export default function HomeNav() {
     <div className="w-full flex flex-col pb-6">
       <div className="justify-end flex gap-2.5">
         <AddFiles />
-        <Avatar>
-          <AvatarImage src={user?.imageUrl} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <UserButton />
       </div>
 
       {pathname !== "/main/home" && (

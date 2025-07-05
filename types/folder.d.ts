@@ -3,7 +3,7 @@ interface DBFolder {
   email: string;
   title: string;
   status: string;
-  files: DBFile[];
+  files: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }

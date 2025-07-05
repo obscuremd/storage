@@ -40,6 +40,7 @@ import { Skeleton } from "../ui/skeleton";
 export function AddFiles() {
   const { user } = useUser();
   const { setFiles, setFolders } = useGen();
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [selectFilesData, setSelectedFilesData] = useState<DBFile[]>([]);
 
   const [image, setImage] = useState<File | undefined>(undefined);
@@ -57,14 +58,13 @@ export function AddFiles() {
       setFileLoading(true);
       try {
         const res = await axios.get(
-          `/api/files?email=${user.emailAddresses[0].emailAddress}`
+          `/api/files?email=${user.emailAddresses[0].emailAddress}&limit=""`
         );
         if (res.status === 200) {
           const filteredFiles = res.data.files.filter(
-            (file: DBFile) => file.folder === ""
+            (file: DBFile) => !file.folder || file.folder === ""
           );
           setSelectedFilesData(filteredFiles);
-          console.log("Filtered files where folder is empty:", filteredFiles);
         }
       } catch (err) {
         console.error("Error fetching files:", err);
@@ -119,6 +119,7 @@ export function AddFiles() {
     }
   };
 
+  // create document function
   const uploadToDb = async () => {
     setLoading(true);
 
@@ -174,10 +175,15 @@ export function AddFiles() {
       toast.error("Failed to upload file");
     } finally {
       setLoading(false);
+      setDialogOpen(false);
+      setDescription("");
     }
   };
 
+  // create folder function
   const handleFolderUpload = async () => {
+    const email = user?.emailAddresses[0].emailAddress;
+    if (!email) return;
     setLoading(true);
 
     // Validate
@@ -200,19 +206,34 @@ export function AddFiles() {
         files: selectedFiles,
       });
 
-      toast.success("Folder created");
-      console.log("Folder created:", response.data);
-      setFolders((prev) => [...prev, response.data]);
+      if (response.status === 201) {
+        const data = {
+          _id: response.data.data._id,
+          title: folderTitle,
+          email: email,
+          files: selectedFiles,
+          status: "active",
+        };
+
+        toast.success("Folder created");
+        console.log("Folder created:", response.data.data);
+        setFolders((prev) => [data, ...prev]);
+      } else {
+        toast.error("error uploading file");
+      }
     } catch (error) {
       console.error("Failed to create folder:", error);
       toast.error("Failed to create folder");
     } finally {
       setLoading(false);
+      setDialogOpen(false);
+      setFolderTitle("");
+      setSelectedFiles([]);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <form>
         <DialogTrigger asChild>
           <Button variant="outline">
@@ -294,7 +315,7 @@ export function AddFiles() {
 
                     <div className="grid gap-3">
                       <Label>Select files to include</Label>
-                      <div className="h-32 overflow-y-scroll">
+                      <div className="h-32 overflow-y-auto flex flex-col gap-2">
                         {selectedFiles.map((value, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <Select

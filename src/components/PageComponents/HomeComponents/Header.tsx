@@ -1,6 +1,5 @@
-import AiChat from "@/components/PageComponents/GeneralComponents/AIChat";
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 import { items } from "@/lib/exports";
 import { useUser } from "@clerk/nextjs";
 import { Search } from "lucide-react";
@@ -23,9 +22,7 @@ export default function Header({ type, setType }: Props) {
         </p>
       </div>
       <div className="flex w-full max-w-[70%] items-center justify-center gap-2">
-        {/* <Input type="email" placeholder="What can Assetive do for you" /> */}
-        <AiChat search />
-
+        <Input type="email" placeholder="Search for a document" />
         <Button type="submit" variant="outline">
           <Search />
         </Button>

@@ -34,6 +34,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import FilePreview from "@/components/localComponents/FilePreview";
 
 interface Props {
   limit: number;
@@ -154,6 +155,7 @@ export default function FileTable({
                     </SheetTrigger>
                     <SheetContent>
                       <SheetHeader>
+                        <FilePreview url={file.url} />
                         <SheetTitle>{file.title}</SheetTitle>
                         <SheetDescription>
                           Type: {file.type} <br />
