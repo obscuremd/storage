@@ -14,6 +14,7 @@ import {
 import { GlowingEffectDemo } from "@/components/localComponents/GridItem";
 import { Timeline } from "@/components/localComponents/Timeline";
 import { AnimatedTestimonials } from "@/components/localComponents/AnimatedTestimonials";
+import Squares from "@/components/reactBits/Squares";
 
 export default function Home() {
   const { isSignedIn } = useUser();
@@ -46,8 +47,16 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-items-center min-h-screen relative w-full p-4 md:p-16 md:gap-32 gap-16">
-      <nav className="flex z-10 justify-between items-center w-full sm:items-start">
+    <main className="relative flex flex-col items-center w-full min-h-screen gap-16 p-4 pt-0 md:pt-0 justify-items-center md:p-16 md:gap-32">
+      <div className="absolute z-0 w-screen h-screen">
+        <Squares
+          squareSize={50}
+          direction="diagonal"
+          borderColor={"#18707C50"}
+          hoverFillColor={"#18707C70"}
+        />
+      </div>
+      <nav className="z-10 flex items-center justify-between w-full pt-10 sm:items-start">
         <p className="text-xl font-bold">Assetive</p>
 
         {isMobile ? (
@@ -67,7 +76,7 @@ export default function Home() {
 
             {/* Show menu dropdown if burger is clicked */}
             {mobileMenuOpen && (
-              <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-800 shadow-md z-20">
+              <div className="absolute left-0 z-20 w-full bg-white shadow-md top-full dark:bg-gray-800">
                 <NavMenu menuItems={LandingPageMenuItems} />
               </div>
             )}
@@ -83,13 +92,13 @@ export default function Home() {
       </nav>
 
       {/* Rest of your page content here */}
-      <header className="flex flex-col justify-center items-center gap-8 z-10">
+      <header className="z-10 flex flex-col items-center justify-center gap-8">
         <GradientButton
           variant="ghost"
           text="🌟 your number #1 cloud storage solution"
         />
         <div className="md:w-[60%] flex flex-col gap-3">
-          <p className="text-4xl font-bold gradient-text text-center">
+          <p className="text-4xl font-bold text-center gradient-text">
             Your Files, Smarter & Safer Than Ever.
           </p>
           <p className="text-center">
@@ -98,7 +107,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-full flex  justify-center gap-3">
+        <div className="flex justify-center w-full gap-3">
           <SignUpButton mode="modal">
             <GradientButton text="Sign Up For Free" />
           </SignUpButton>
