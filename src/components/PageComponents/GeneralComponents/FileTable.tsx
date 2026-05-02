@@ -74,7 +74,7 @@ export default function FileTable({
             user.emailAddresses[0].emailAddress
           }&page=${page}&limit=${limit}&status=${status}${
             folder ? `&folder=${folder}` : ""
-          }${type ? `&type=${type}` : ""}`
+          }${type ? `&type=${type}` : ""}`,
         );
 
         if (res.status === 200) {
@@ -117,15 +117,15 @@ export default function FileTable({
       <CollapsibleTrigger>
         <CollapsableButton title={title} />
       </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col gap-3 rounded-xl border border-zinc-800 p-2">
+      <CollapsibleContent className="flex flex-col gap-3 p-2 border rounded-xl border-zinc-800">
         <Table className="w-full text-sm text-gray-200">
           <TableHeader>
-            <TableRow className="bg-zinc-900 text-xs uppercase text-zinc-400">
-              <TableHead className="py-4 px-4 rounded-l-xl">Title</TableHead>
-              <TableHead className="py-4 px-4">Type</TableHead>
-              <TableHead className="py-4 px-4">Created</TableHead>
-              <TableHead className="py-4 px-4">Size</TableHead>
-              <TableHead className="py-4 px-4 rounded-r-xl"></TableHead>
+            <TableRow className="text-xs uppercase bg-zinc-900 text-zinc-400">
+              <TableHead className="px-4 py-4 rounded-l-xl">Title</TableHead>
+              <TableHead className="px-4 py-4">Type</TableHead>
+              <TableHead className="px-4 py-4">Created</TableHead>
+              <TableHead className="px-4 py-4">Size</TableHead>
+              <TableHead className="px-4 py-4 rounded-r-xl"></TableHead>
             </TableRow>
           </TableHeader>
 
@@ -136,7 +136,7 @@ export default function FileTable({
               </TableRow>
             ) : files.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-center py-5">
+                <TableCell colSpan={4} className="py-5 text-center">
                   No files found.
                 </TableCell>
               </TableRow>
@@ -147,7 +147,7 @@ export default function FileTable({
                   <Sheet>
                     <SheetTrigger asChild>
                       <TableCell
-                        className="py-4 px-4 cursor-pointer hover:underline"
+                        className="px-4 py-4 cursor-pointer hover:underline"
                         onClick={(e) => e.stopPropagation()} // Prevent nested trigger conflicts
                       >
                         {file.title}
@@ -170,16 +170,16 @@ export default function FileTable({
                     </SheetContent>
                   </Sheet>
 
-                  <TableCell className="py-4 px-4">{file.type}</TableCell>
-                  <TableCell className="py-4 px-4">
+                  <TableCell className="px-4 py-4">{file.type}</TableCell>
+                  <TableCell className="px-4 py-4">
                     {file.createdAt
                       ? new Date(file.createdAt).toLocaleDateString()
                       : "N/A"}
                   </TableCell>
-                  <TableCell className="py-4 px-4">
+                  <TableCell className="px-4 py-4">
                     {(file.size / 1024).toFixed(2)} KB
                   </TableCell>
-                  <TableCell className="py-4 px-4">
+                  <TableCell className="px-4 py-4">
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <EllipsisVertical className="w-4" />
@@ -208,7 +208,7 @@ export default function FileTable({
 
         {/* ✅ Pagination Controls */}
         {pagination && (
-          <div className="flex items-center justify-end space-x-4 py-4 px-2">
+          <div className="flex items-center justify-end px-2 py-4 space-x-4">
             <p className="text-sm text-muted-foreground">
               Page {page} of {pages}
             </p>
